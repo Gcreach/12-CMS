@@ -11,72 +11,63 @@ const db = mysql.createConnection(
     console.log(`Connected to the employee_db database.`)
   );
 
-
-
-  function command () {
-  const questions =
+  const questions = () => {
+    inquirer.prompt([
   {
     type: 'list',
     message: 'What would you like to do?',
     choices: ['View All Employees','Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit'],
     name: 'choice'
-};
+}
+    ])
 
-inquirer.prompt(questions)
+
+  //Brings up the menu
 .then((answers) => {
 
+//goes through each of the answers
 if (answers.choice === 'Add Employee') {
-  console.log("Add employee");
   addEmployee();
-}
+};
 
-else if (answers.choice === 'View All Employees') {
-  console.log("view employee");
+if (answers.choice === 'View All Employees') {
   viewAllEmployees();
   
-}
+};
 
-else if (answers.choice === 'Update Employee Role') {
-  console.log("update employee");
+if (answers.choice === 'Update Employee Role') {
 updateEmployeeRole();
+};
 
-}
-
-else if (answers.choice === 'View All Roles') {
-  console.log("view role");
+if (answers.choice === 'View All Roles') {
 viewAllRoles();
 
-}
+};
 
-else if (answers.choice === 'Add Role') {
-  console.log("Add role");
+if (answers.choice === 'Add Role') {
 addRole();
  
-}
+};
 
-else if (answers.choice === 'View All Departments') {
-  console.log("View department");
+if (answers.choice === 'View All Departments') {
 viewAllDepartments();
 
-}
+};
 
-else if (answers.choice === 'Add Department') {
-  console.log("add department");
+if (answers.choice === 'Add Department') {
   addDeparment();
-}
+};
 
-else if (answers.choice === 'quit') {
-  console.log("quit");
+if (answers.choice === 'quit') {
   process.exit();
-}
-
-});
-  }
-
+  };
+  });
+ }
 
 
-function addEmployee () {
-   inquirer.prompt
+
+async function addEmployee  () {
+   await inquirer.prompt
      ([
       {
           type: "input",
@@ -105,19 +96,20 @@ function addEmployee () {
         console.log('employee added!');
       })
     }
-    )
-    command(); 
+    );
+     return questions();
+
   }
 
-  function viewAllEmployees () {
-    db.query('SELECT * FROM employee', (err, results) => {
+ function viewAllEmployees () {
+  db.query('SELECT * FROM employee', (err, results) => {
       console.table(results);
   });
-  command(); 
+  return questions();
   }
 
- function updateEmployeeRole () {
-  inquirer.prompt([
+ async function updateEmployeeRole ()  {
+  await inquirer.prompt([
     {
       type: 'input',
       name: 'employee',
@@ -135,26 +127,26 @@ function addEmployee () {
       console.log("role updated!");
     }
     )
-  })
-  command(); 
+  });
+  return questions();
  }
 
  function viewAllRoles () {
   db.query('SELECT * FROM roles', (err, results) => {
     console.table(results);
 });
-command(); 
+return questions();
  }
 
- function viewAllDepartments () {
-  db.query('SELECT * FROM department', (err, results) => {
+function viewAllDepartments () {
+   db.query('SELECT * FROM department', (err, results) => {
     console.table(results);
 });
-command(); 
+return questions();
  }
 
- function addRole () {
-  inquirer.prompt([
+async function addRole ()  {
+ await inquirer.prompt([
     {
       type: 'input',
       name: 'name',
@@ -178,12 +170,11 @@ command();
     console.log('Role added!');
   })
   }); 
-  command(); 
+  return questions();
  }
 
-
- function addDeparment () {
-  inquirer.prompt([
+async function addDeparment  () {
+await inquirer.prompt([
     {
       type: 'input',
       name: 'deparment',
@@ -195,11 +186,11 @@ command();
       viewAllDepartments();
       console.log('Department added!');
     })
-  })
-  command(); 
+  });
+  return questions();
  }
 
- command();
+ questions();
 
 
  
