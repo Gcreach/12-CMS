@@ -25,9 +25,16 @@ Install the app from Github then run npm i in the terminal
 
 ## Usage
 
-Open up the terminal and run the app. You will be given several choices to choose from. Some allow you to simply view the database while others allow you to add or update. Follow the prompts on the screen
+Open up the terminal and run the app. You will be given several choices to choose from. 
 
-![Demo video](./assets/IMG.PNG)(https://drive.google.com/file/d/1E7ZOWJ1nmcIYPd1Hizhq1zn63d8M_t6w/view?usp=sharing)
+*Add Employee: Enter the first name, then the last name, then the role ID, then the manager ID
+*Update Employee: Enter the employee ID of the desired employee then enter the role ID
+*Add Role: Enter the name of the role then the department ID
+*Add Department: Enter the name of the department
+
+the view commands are self explanatory, they will display the desired category (employee, role, department).
+
+![Demo video](./assets/IMG.PNG)(https://drive.google.com/file/d/1xWlSKMUwqhzQxRYnQoW_xfX3axnlGF0-/view?usp=sharing)
 
 ## Credits
 

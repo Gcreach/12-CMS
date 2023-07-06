@@ -90,23 +90,23 @@ async function addEmployee  () {
         message: "Who is the employee's manager?"
           }
     ]).then((data) => {
-      db.query('INSERT INTO employee SET ? ', {first_name: data.firstName, last_name: data.lastName, role: data.role, manager: data.manager},
+      console.log(data.role + data.manager);
+      db.query('INSERT INTO employee SET ? ', {first_name: data.firstName, last_name: data.lastName, role_id: data.role, manager_id: data.manager},
       (err, res) => {
         viewAllEmployees();
         console.log('employee added!');
-      })
+      });
     }
     );
-     return questions();
 
-  }
+  };
 
- function viewAllEmployees () {
-  db.query('SELECT * FROM employee', (err, results) => {
-      console.table(results);
-  });
-  return questions();
-  }
+function viewAllEmployees () {
+    db.query('SELECT * FROM employee', (err, results) => {
+        console.table(results);
+        return questions();
+    });
+};
 
  async function updateEmployeeRole ()  {
   await inquirer.prompt([
@@ -122,28 +122,29 @@ async function addEmployee  () {
     },
   ])
   .then((data) => {
-    db.query(`UPDATE employee SET role_id = ${data.role} WHERE id = ${data.employee}`, (err,) => {
+    db.query(`UPDATE employee SET role_id = ${data.role} WHERE id = ${data.employee}`, (err, res) => {
+      console.log(data);
       viewAllEmployees();
       console.log("role updated!");
     }
     )
   });
-  return questions();
- }
+
+ };
 
  function viewAllRoles () {
   db.query('SELECT * FROM roles', (err, results) => {
     console.table(results);
+    return questions();
 });
-return questions();
- }
+ };
 
 function viewAllDepartments () {
    db.query('SELECT * FROM department', (err, results) => {
     console.table(results);
+    return questions();
 });
-return questions();
- }
+ };
 
 async function addRole ()  {
  await inquirer.prompt([
@@ -170,14 +171,13 @@ async function addRole ()  {
     console.log('Role added!');
   })
   }); 
-  return questions();
- }
+ };
 
 async function addDeparment  () {
 await inquirer.prompt([
     {
       type: 'input',
-      name: 'deparment',
+      name: 'department',
       message: 'What is the name of the department?'
     }
   ])
@@ -187,8 +187,7 @@ await inquirer.prompt([
       console.log('Department added!');
     })
   });
-  return questions();
- }
+ };
 
  questions();
 
